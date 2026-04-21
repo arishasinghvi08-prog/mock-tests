@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as pdfjsLib from "pdfjs-dist/build/pdf";
+import pdfWorker from "pdfjs-dist/build/pdf.worker.min.js";
 
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfWorker;
 pdfjsLib.GlobalWorkerOptions.workerSrc =
   "https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js";
 
@@ -102,8 +104,7 @@ export default function App() {
       const text = reader.result;
       const key = {};
 
-      const matches = text.matchAll(/(\d+)\s*[\.\-\)]?\s*([A-D])/gi);
-
+      const matches = text.matchAll(/(\d+)\s*[.\-)]?\s*([A-D])/gi);
       for (const match of matches) {
         key[Number(match[1])] = match[2].toUpperCase();
       }
